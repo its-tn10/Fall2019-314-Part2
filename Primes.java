@@ -132,34 +132,50 @@ public class Primes {
 	// Count the number of digits in the last (and thus largest) prime.
 	public int sizeofLastPrime()
 	{
+		return 0;
 	}
 	
 	// Count the number of digits in the two entries in the last (and thus largest) hexagon cross
 	public Pair<Integer> sizeofLastCross()
 	{
+		return null;
 	}
 	
 	// Return the number of primes
 	public int primeCount()
 	{
+		return 0;
 	}
 	
 	// Return the number of crosses.
 	public int crossesCount()
 	{
+		return 0;
 	}
 	
 	public class IterablePrimes implements Iterable<BigInteger>
-	{		
+	{
+
+		@Override
+		public Iterator<BigInteger> iterator() {
+			// TODO Auto-generated method stub
+			return null;
+		}		
 	}
 	
 	public IterablePrimes iteratePrimes() { return new IterablePrimes();}
 
 	public class IterableCrosses implements Iterable<BigInteger>
-	{		
+	{
+
+		@Override
+		public Iterator<BigInteger> iterator() {
+			// TODO Auto-generated method stub
+			return null;
+		}		
 	}
 	
-	public IterableCrosses iterateCrosses() { return new IterablePrimes();}
+	public IterablePrimes iterateCrosses() { return new IterablePrimes();}
 
 
 }

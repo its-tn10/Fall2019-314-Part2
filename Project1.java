@@ -5,5 +5,6 @@ public class Project1 {
 		Primes p = new Primes();
 		
 		MainWindow mw = new MainWindow(Config.APPLICATIONNAME, p);
+
 	}
 }

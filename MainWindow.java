@@ -1,5 +1,6 @@
 import javax.swing.JFrame;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,6 +30,154 @@ public class MainWindow extends JFrame
 	
 	MainWindow(String name, Primes p)
 	{
+		this.m_Primes = p;
+		
+		// Main window creation
+		JDialog dPrimes = new JDialog(this, name);
+		GridBagLayout gridLayout = new GridBagLayout();
+		dPrimes.getContentPane().setBackground(new Color(80, 0, 0));
+		dPrimes.getContentPane().setLayout(gridLayout);
+		
+		GridBagConstraints gbcDialog = new GridBagConstraints();
+		gbcDialog.fill = GridBagConstraints.HORIZONTAL;
+		gbcDialog.anchor = GridBagConstraints.WEST;
+		gbcDialog.ipady = 10;
+		gbcDialog.weightx = .5;
+		gbcDialog.insets = new Insets(1,2,0,0);
+		gbcDialog.gridx = 0;
+		gbcDialog.gridy = 0;
+		
+		GridBagConstraints gbcPanel = new GridBagConstraints();
+		gbcPanel.anchor = GridBagConstraints.WEST;
+		gbcPanel.weightx = .5;
+		gbcPanel.insets = new Insets(1,2,0,0);
+		gbcPanel.gridx = 0;
+		gbcPanel.gridy = 0;
+		
+		
+		// Primes file panel
+		JPanel pnlPrimes = new JPanel();
+		pnlPrimes.setLayout(new GridBagLayout());
+		
+		JLabel lblCountPrimes = new JLabel("0");
+		lblCountPrimes.setFont(new Font("Tahoma", Font.BOLD, 12));
+		gbcPanel.gridx = 1;
+		pnlPrimes.add(lblCountPrimes, gbcPanel);
+		
+		JTextField tfPrimeFile = new JTextField();
+		lblCountPrimes.setLabelFor(tfPrimeFile);
+		tfPrimeFile.setColumns(45);
+		gbcPanel.gridx = 0;
+		tfPrimeFile.setText("primes.txt");
+		pnlPrimes.add(tfPrimeFile, gbcPanel);
+		
+		JLabel lblPrimeStart = new JLabel("Primes File");
+		lblPrimeStart.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		gbcPanel.gridx = 0;
+		gbcPanel.gridy = 1;
+		pnlPrimes.add(lblPrimeStart, gbcPanel);
+		
+		JButton btnLoad = new JButton("Load");
+		gbcPanel.anchor = GridBagConstraints.EAST;
+		gbcPanel.gridx = 0;
+		gbcPanel.gridy = 1;
+		pnlPrimes.add(btnLoad, gbcPanel);
+		
+		JButton btnSave = new JButton("Save");
+		gbcPanel.gridx = 1;
+		gbcPanel.gridy = 1;
+		pnlPrimes.add(btnSave, gbcPanel);
+		
+		dPrimes.add(pnlPrimes, gbcDialog);
+		
+		// Hexagon cross file panel
+		JPanel pnlCrosses = new JPanel();
+		pnlCrosses.setLayout(new GridBagLayout());
+		
+		JLabel lblCountCrosses = new JLabel("0");
+		lblCountCrosses.setFont(new Font("Tahoma", Font.BOLD, 12));
+		gbcPanel.anchor = GridBagConstraints.WEST;
+		gbcPanel.gridx = 1;
+		gbcPanel.gridy = 0;
+		pnlCrosses.add(lblCountCrosses, gbcPanel);
+		
+		JTextField tfCrossFile = new JTextField();
+		lblCountCrosses.setLabelFor(tfCrossFile);
+		tfCrossFile.setColumns(45);
+		gbcPanel.gridx = 0;
+		tfCrossFile.setText("crosses.txt");
+		pnlCrosses.add(tfCrossFile, gbcPanel);
+		
+		JLabel lblCrossStart = new JLabel("Hexagon Cross File");
+		lblCrossStart.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		gbcPanel.gridx = 0;
+		gbcPanel.gridy = 1;
+		pnlCrosses.add(lblCrossStart, gbcPanel);
+		
+		JButton btnLoadCross = new JButton("Load");
+		gbcPanel.anchor = GridBagConstraints.EAST;
+		gbcPanel.gridx = 0;
+		gbcPanel.gridy = 1;
+		pnlCrosses.add(btnLoadCross, gbcPanel);
+		
+		JButton btnSaveCross = new JButton("Save");
+		gbcPanel.gridx = 1;
+		gbcPanel.gridy = 1;
+		pnlCrosses.add(btnSaveCross, gbcPanel);
+		
+		gbcDialog.gridy = 1;
+		dPrimes.add(pnlCrosses, gbcDialog);
+		
+		// Bottom panel - buttons, status, fields, etc.
+
+		JPanel pnlButtons = new JPanel();
+		pnlButtons.setLayout(new GridBagLayout());
+		
+		JButton btnGeneratePrimes = new JButton("Generate Primes");
+		gbcPanel.anchor = GridBagConstraints.WEST;
+		gbcPanel.gridx = 0;
+		gbcPanel.gridy = 0;
+		pnlButtons.add(btnGeneratePrimes, gbcPanel);
+		
+		JLabel lblLargestPrime = new JLabel("The largest prime has 0 digits.");
+		lblLargestPrime.setFont(new Font("Tahoma", Font.BOLD, 12));
+		gbcPanel.gridx = 1;
+		pnlButtons.add(lblLargestPrime, gbcPanel);
+		
+		JLabel lblLargestCross = new JLabel("The largest cross has 0 and 0 digits.");
+		lblLargestCross.setFont(new Font("Tahoma", Font.BOLD, 12));
+		gbcPanel.gridy = 1;
+		pnlButtons.add(lblLargestCross, gbcPanel);
+		
+		JButton btnCancel = new JButton("Generate Crosses");
+		gbcPanel.anchor = GridBagConstraints.EAST;
+		gbcPanel.gridx = 2;
+		gbcPanel.gridy = 0;
+		pnlButtons.add(btnCancel, gbcPanel);		
+		
+		gbcDialog.gridy = 2;
+		dPrimes.add(pnlButtons, gbcDialog);
+		
+		JPanel pnlStatus = new JPanel();
+		pnlStatus.setLayout(new GridBagLayout());
+
+		gbcPanel.anchor = GridBagConstraints.SOUTHWEST;
+		gbcPanel.weightx = .5;
+		gbcPanel.insets = new Insets(1,2,0,0);
+		gbcPanel.gridx = 0;
+		gbcPanel.gridy = 1;
+
+		JLabel lblNotice = new JLabel("Status: Bored.");
+		lblNotice.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		pnlStatus.add(lblNotice, gbcPanel);
+		
+		gbcDialog.gridy = 3;
+		dPrimes.add(pnlStatus, gbcDialog);
+		
+		
+		dPrimes.setSize(1000,400);
+		dPrimes.pack(); // Knowing what this is and why it is needed is important. You should read the documentation on this function!
+		dPrimes.setVisible(true);		
 	}
 
 	protected void popupGeneratePrimes()
