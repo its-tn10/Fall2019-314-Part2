@@ -29,19 +29,19 @@ public class Primes {
 	// Adds a pair of BigIntegers that represent a Hexagonal Cross.
 	public void addCross(Pair<BigInteger> pair)
 	{
-
+		this.crossList.add(pair);
 	}
 	
 	// Empties the list of primes.
 	public void clearPrimes()
 	{
-	
+		this.primeList.clear();
 	}
 	
 	// Empties the list of crosses.
 	public void clearCrosses()
 	{
-
+		this.crossList.clear();
 	}
 	
 	// Output the prime list. Each prime should be on a separate line and the total number of primes should be on the following line.
@@ -132,25 +132,26 @@ public class Primes {
 	// Count the number of digits in the last (and thus largest) prime.
 	public int sizeofLastPrime()
 	{
-		return 0;
+		return String.valueOf(this.primeList.get(this.primeList.size() - 1)).length();
 	}
 	
 	// Count the number of digits in the two entries in the last (and thus largest) hexagon cross
 	public Pair<Integer> sizeofLastCross()
 	{
-		return null;
+		Pair<BigInteger> prime = this.crossList.get(this.crossList.size() - 1);
+		return new Pair<Integer>(String.valueOf(prime.left()).length(), String.valueOf(prime.right()).length());
 	}
 	
 	// Return the number of primes
 	public int primeCount()
 	{
-		return 0;
+		return this.primeList.size();
 	}
 	
 	// Return the number of crosses.
 	public int crossesCount()
 	{
-		return 0;
+		return this.crossList.size();
 	}
 	
 	public class IterablePrimes implements Iterable<BigInteger>
