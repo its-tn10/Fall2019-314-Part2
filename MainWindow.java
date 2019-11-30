@@ -78,12 +78,30 @@ public class MainWindow extends JFrame
 		pnlPrimes.add(lblPrimeStart, gbcPanel);
 		
 		JButton btnLoad = new JButton("Load");
+		btnLoad.addActionListener(new ActionListener() {
+		      public void actionPerformed(ActionEvent e) {
+		      	boolean status = FileAccess.loadPrimes(m_Primes, Config.DATAPATH + tfPrimeFile.getText());
+		      	if (status)
+		      		lblStatus.setText("Status: Loaded primes file successfully.");
+		      	else
+		      		lblStatus.setText("Status: FAILED to load primes file.");
+		      }
+		    });
 		gbcPanel.anchor = GridBagConstraints.EAST;
 		gbcPanel.gridx = 0;
 		gbcPanel.gridy = 1;
 		pnlPrimes.add(btnLoad, gbcPanel);
 		
 		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+		      public void actionPerformed(ActionEvent e) {
+			      	boolean status = FileAccess.savePrimes(m_Primes, Config.DATAPATH + tfPrimeFile.getText());
+			      	if (status)
+			      		lblStatus.setText("Status: Primes list saved successfully.");
+			      	else
+			      		lblStatus.setText("Status: FAILED to save primes list.");
+			      }
+		    });
 		gbcPanel.gridx = 1;
 		gbcPanel.gridy = 1;
 		pnlPrimes.add(btnSave, gbcPanel);
@@ -115,12 +133,30 @@ public class MainWindow extends JFrame
 		pnlCrosses.add(lblCrossStart, gbcPanel);
 		
 		JButton btnLoadCross = new JButton("Load");
+		btnLoadCross.addActionListener(new ActionListener() {
+		      public void actionPerformed(ActionEvent e) {
+			      	boolean status = FileAccess.loadCrosses(m_Primes, Config.DATAPATH + tfCrossFile.getText());
+			      	if (status)
+			      		lblStatus.setText("Status: Loaded cross file successfully.");
+			      	else
+			      		lblStatus.setText("Status: FAILED to load cross list.");
+			  }
+		    });
 		gbcPanel.anchor = GridBagConstraints.EAST;
 		gbcPanel.gridx = 0;
 		gbcPanel.gridy = 1;
 		pnlCrosses.add(btnLoadCross, gbcPanel);
 		
 		JButton btnSaveCross = new JButton("Save");
+		btnSaveCross.addActionListener(new ActionListener() {
+		      public void actionPerformed(ActionEvent e) {
+			      	boolean status = FileAccess.saveCrosses(m_Primes, Config.DATAPATH + tfCrossFile.getText());
+			      	if (status)
+			      		lblStatus.setText("Status: Cross list saved successfully.");
+			      	else
+			      		lblStatus.setText("Status: FAILED to save cross list.");
+			      }
+		    });
 		gbcPanel.gridx = 1;
 		gbcPanel.gridy = 1;
 		pnlCrosses.add(btnSaveCross, gbcPanel);
@@ -134,6 +170,11 @@ public class MainWindow extends JFrame
 		pnlButtons.setLayout(new GridBagLayout());
 		
 		JButton btnGeneratePrimes = new JButton("Generate Primes");
+		btnGeneratePrimes.addActionListener(new ActionListener() {
+		      public void actionPerformed(ActionEvent e) {
+		    	  popupGeneratePrimes();
+		      }
+		    });
 		gbcPanel.anchor = GridBagConstraints.WEST;
 		gbcPanel.gridx = 0;
 		gbcPanel.gridy = 0;
@@ -149,11 +190,16 @@ public class MainWindow extends JFrame
 		gbcPanel.gridy = 1;
 		pnlButtons.add(lblLargestCross, gbcPanel);
 		
-		JButton btnCancel = new JButton("Generate Crosses");
+		JButton btnGenerateCross = new JButton("Generate Crosses");
+		btnGenerateCross.addActionListener(new ActionListener() {
+		      public void actionPerformed(ActionEvent e) {
+		    	  popupGenerateCrosses();
+		      }
+		    });
 		gbcPanel.anchor = GridBagConstraints.EAST;
 		gbcPanel.gridx = 2;
 		gbcPanel.gridy = 0;
-		pnlButtons.add(btnCancel, gbcPanel);		
+		pnlButtons.add(btnGenerateCross, gbcPanel);		
 		
 		gbcDialog.gridy = 2;
 		dPrimes.add(pnlButtons, gbcDialog);
@@ -167,9 +213,9 @@ public class MainWindow extends JFrame
 		gbcPanel.gridx = 0;
 		gbcPanel.gridy = 1;
 
-		JLabel lblNotice = new JLabel("Status: Bored.");
-		lblNotice.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		pnlStatus.add(lblNotice, gbcPanel);
+		lblStatus = new JLabel("Status: Bored.");
+		lblStatus.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		pnlStatus.add(lblStatus, gbcPanel);
 		
 		gbcDialog.gridy = 3;
 		dPrimes.add(pnlStatus, gbcDialog);
@@ -178,6 +224,11 @@ public class MainWindow extends JFrame
 		dPrimes.setSize(1000,400);
 		dPrimes.pack(); // Knowing what this is and why it is needed is important. You should read the documentation on this function!
 		dPrimes.setVisible(true);		
+	}
+	
+	protected void popupGenerateCrosses()
+	{
+		
 	}
 
 	protected void popupGeneratePrimes()

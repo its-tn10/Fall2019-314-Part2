@@ -156,27 +156,60 @@ public class Primes {
 	
 	public class IterablePrimes implements Iterable<BigInteger>
 	{
-
+		protected Primes parent;
+		public IterablePrimes(Primes prime) {
+			this.parent = prime;
+		}
+		
+		// With aid from https://stackoverflow.com/questions/5849154/can-we-write-our-own-iterator-in-java
 		@Override
 		public Iterator<BigInteger> iterator() {
-			// TODO Auto-generated method stub
-			return null;
+	        Iterator<BigInteger> it = new Iterator<BigInteger>() {
+	            private int currIndex = 0;
+
+	            @Override
+	            public boolean hasNext() {
+	                return currIndex < parent.primeList.size();
+	            }
+
+	            @Override
+	            public BigInteger next() {
+	                return parent.primeList.get(currIndex++);
+	            }
+	        };
+	        return it;
 		}		
 	}
 	
-	public IterablePrimes iteratePrimes() { return new IterablePrimes();}
+	public IterablePrimes iteratePrimes() { return new IterablePrimes(this); }
 
-	public class IterableCrosses implements Iterable<BigInteger>
+	public class IterableCrosses implements Iterable<Pair<BigInteger>>
 	{
-
+		protected Primes parent;
+		public IterableCrosses(Primes prime) {
+			this.parent = prime;
+		}
+		
+		// With aid from https://stackoverflow.com/questions/5849154/can-we-write-our-own-iterator-in-java
 		@Override
-		public Iterator<BigInteger> iterator() {
-			// TODO Auto-generated method stub
-			return null;
+		public Iterator<Pair<BigInteger>> iterator() {
+	        Iterator<Pair<BigInteger>> it = new Iterator<Pair<BigInteger>>() {
+	            private int currIndex = 0;
+
+	            @Override
+	            public boolean hasNext() {
+	                return currIndex < parent.crossList.size();
+	            }
+
+	            @Override
+	            public Pair<BigInteger> next() {
+	                return parent.crossList.get(currIndex++);
+	            }
+	        };
+	        return it;
 		}		
 	}
 	
-	public IterablePrimes iterateCrosses() { return new IterablePrimes();}
-
+	public IterableCrosses iterateCrosses() { return new IterableCrosses(this); }
 
 }
