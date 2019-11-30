@@ -132,12 +132,16 @@ public class Primes {
 	// Count the number of digits in the last (and thus largest) prime.
 	public int sizeofLastPrime()
 	{
+		if (this.primeCount() <= 0)
+			return 0;
 		return String.valueOf(this.primeList.get(this.primeList.size() - 1)).length();
 	}
 	
 	// Count the number of digits in the two entries in the last (and thus largest) hexagon cross
 	public Pair<Integer> sizeofLastCross()
 	{
+		if (this.crossesCount() <= 0)
+			return new Pair<Integer>(0, 0);
 		Pair<BigInteger> prime = this.crossList.get(this.crossList.size() - 1);
 		return new Pair<Integer>(String.valueOf(prime.left()).length(), String.valueOf(prime.right()).length());
 	}

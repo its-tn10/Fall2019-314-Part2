@@ -59,17 +59,17 @@ public class MainWindow extends JFrame
 		JPanel pnlPrimes = new JPanel();
 		pnlPrimes.setLayout(new GridBagLayout());
 		
-		JLabel lblCountPrimes = new JLabel("0");
-		lblCountPrimes.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblPrimeCount = new JLabel("0");
+		lblPrimeCount.setFont(new Font("Tahoma", Font.BOLD, 12));
 		gbcPanel.gridx = 1;
-		pnlPrimes.add(lblCountPrimes, gbcPanel);
+		pnlPrimes.add(lblPrimeCount, gbcPanel);
 		
-		JTextField tfPrimeFile = new JTextField();
-		lblCountPrimes.setLabelFor(tfPrimeFile);
-		tfPrimeFile.setColumns(45);
+		tfPrimeFileName = new JTextField();
+		lblPrimeCount.setLabelFor(tfPrimeFileName);
+		tfPrimeFileName.setColumns(45);
 		gbcPanel.gridx = 0;
-		tfPrimeFile.setText("primes.txt");
-		pnlPrimes.add(tfPrimeFile, gbcPanel);
+		tfPrimeFileName.setText("primes.txt");
+		pnlPrimes.add(tfPrimeFileName, gbcPanel);
 		
 		JLabel lblPrimeStart = new JLabel("Primes File");
 		lblPrimeStart.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -80,11 +80,13 @@ public class MainWindow extends JFrame
 		JButton btnLoad = new JButton("Load");
 		btnLoad.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent e) {
-		      	boolean status = FileAccess.loadPrimes(m_Primes, Config.DATAPATH + tfPrimeFile.getText());
+		      	boolean status = FileAccess.loadPrimes(m_Primes, Config.DATAPATH + tfPrimeFileName.getText());
 		      	if (status)
 		      		lblStatus.setText("Status: Loaded primes file successfully.");
 		      	else
 		      		lblStatus.setText("Status: FAILED to load primes file.");
+		      	
+		      	updateStats();
 		      }
 		    });
 		gbcPanel.anchor = GridBagConstraints.EAST;
@@ -95,7 +97,7 @@ public class MainWindow extends JFrame
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent e) {
-			      	boolean status = FileAccess.savePrimes(m_Primes, Config.DATAPATH + tfPrimeFile.getText());
+			      	boolean status = FileAccess.savePrimes(m_Primes, Config.DATAPATH + tfPrimeFileName.getText());
 			      	if (status)
 			      		lblStatus.setText("Status: Primes list saved successfully.");
 			      	else
@@ -112,19 +114,19 @@ public class MainWindow extends JFrame
 		JPanel pnlCrosses = new JPanel();
 		pnlCrosses.setLayout(new GridBagLayout());
 		
-		JLabel lblCountCrosses = new JLabel("0");
-		lblCountCrosses.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblCrossCount = new JLabel("0");
+		lblCrossCount.setFont(new Font("Tahoma", Font.BOLD, 12));
 		gbcPanel.anchor = GridBagConstraints.WEST;
 		gbcPanel.gridx = 1;
 		gbcPanel.gridy = 0;
-		pnlCrosses.add(lblCountCrosses, gbcPanel);
+		pnlCrosses.add(lblCrossCount, gbcPanel);
 		
-		JTextField tfCrossFile = new JTextField();
-		lblCountCrosses.setLabelFor(tfCrossFile);
-		tfCrossFile.setColumns(45);
+		tfCrossFileName = new JTextField();
+		lblCrossCount.setLabelFor(tfCrossFileName);
+		tfCrossFileName.setColumns(45);
 		gbcPanel.gridx = 0;
-		tfCrossFile.setText("crosses.txt");
-		pnlCrosses.add(tfCrossFile, gbcPanel);
+		tfCrossFileName.setText("crosses.txt");
+		pnlCrosses.add(tfCrossFileName, gbcPanel);
 		
 		JLabel lblCrossStart = new JLabel("Hexagon Cross File");
 		lblCrossStart.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -135,11 +137,13 @@ public class MainWindow extends JFrame
 		JButton btnLoadCross = new JButton("Load");
 		btnLoadCross.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent e) {
-			      	boolean status = FileAccess.loadCrosses(m_Primes, Config.DATAPATH + tfCrossFile.getText());
+			      	boolean status = FileAccess.loadCrosses(m_Primes, Config.DATAPATH + tfCrossFileName.getText());
 			      	if (status)
 			      		lblStatus.setText("Status: Loaded cross file successfully.");
 			      	else
 			      		lblStatus.setText("Status: FAILED to load cross list.");
+			      	
+			      	updateStats();
 			  }
 		    });
 		gbcPanel.anchor = GridBagConstraints.EAST;
@@ -150,7 +154,7 @@ public class MainWindow extends JFrame
 		JButton btnSaveCross = new JButton("Save");
 		btnSaveCross.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent e) {
-			      	boolean status = FileAccess.saveCrosses(m_Primes, Config.DATAPATH + tfCrossFile.getText());
+			      	boolean status = FileAccess.saveCrosses(m_Primes, Config.DATAPATH + tfCrossFileName.getText());
 			      	if (status)
 			      		lblStatus.setText("Status: Cross list saved successfully.");
 			      	else
@@ -180,12 +184,12 @@ public class MainWindow extends JFrame
 		gbcPanel.gridy = 0;
 		pnlButtons.add(btnGeneratePrimes, gbcPanel);
 		
-		JLabel lblLargestPrime = new JLabel("The largest prime has 0 digits.");
+		lblLargestPrime = new JLabel("The largest prime has 0 digits.");
 		lblLargestPrime.setFont(new Font("Tahoma", Font.BOLD, 12));
 		gbcPanel.gridx = 1;
 		pnlButtons.add(lblLargestPrime, gbcPanel);
 		
-		JLabel lblLargestCross = new JLabel("The largest cross has 0 and 0 digits.");
+		lblLargestCross = new JLabel("The largest cross has 0 and 0 digits.");
 		lblLargestCross.setFont(new Font("Tahoma", Font.BOLD, 12));
 		gbcPanel.gridy = 1;
 		pnlButtons.add(lblLargestCross, gbcPanel);
@@ -193,7 +197,10 @@ public class MainWindow extends JFrame
 		JButton btnGenerateCross = new JButton("Generate Crosses");
 		btnGenerateCross.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent e) {
-		    	  popupGenerateCrosses();
+		    	m_Primes.generateTwinPrimes();
+	       		m_Primes.generateHexPrimes();
+	       		lblStatus.setText("Status: Excited. Crosses have been generated.");
+	       		updateStats();
 		      }
 		    });
 		gbcPanel.anchor = GridBagConstraints.EAST;
@@ -224,11 +231,6 @@ public class MainWindow extends JFrame
 		dPrimes.setSize(1000,400);
 		dPrimes.pack(); // Knowing what this is and why it is needed is important. You should read the documentation on this function!
 		dPrimes.setVisible(true);		
-	}
-	
-	protected void popupGenerateCrosses()
-	{
-		
 	}
 
 	protected void popupGeneratePrimes()
@@ -345,6 +347,10 @@ public class MainWindow extends JFrame
 	// This function updates all the GUI statistics. (# of primes, # of crosses, etc)
 	private void updateStats()
 	{
+		lblPrimeCount.setText(String.valueOf(m_Primes.primeCount()));
+		lblCrossCount.setText(String.valueOf(m_Primes.crossesCount()));
+		lblLargestPrime.setText("The largest prime has " + m_Primes.sizeofLastPrime() + " digits.");
+		lblLargestCross.setText("The largest cross has " + m_Primes.sizeofLastCross().left() + " and " + m_Primes.sizeofLastCross().left() + " digits.");
  	}
 
 }
