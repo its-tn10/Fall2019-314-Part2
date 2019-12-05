@@ -30,13 +30,14 @@ public class MainWindow extends JFrame
 	
 	MainWindow(String name, Primes p)
 	{
+		super();
 		this.m_Primes = p;
 		
 		// Main window creation
-		JDialog dPrimes = new JDialog(this, name);
 		GridBagLayout gridLayout = new GridBagLayout();
-		dPrimes.getContentPane().setBackground(new Color(80, 0, 0));
-		dPrimes.getContentPane().setLayout(gridLayout);
+		setTitle(name);
+		getContentPane().setBackground(new Color(80, 0, 0));
+		getContentPane().setLayout(gridLayout);
 		
 		GridBagConstraints gbcDialog = new GridBagConstraints();
 		gbcDialog.fill = GridBagConstraints.HORIZONTAL;
@@ -46,6 +47,8 @@ public class MainWindow extends JFrame
 		gbcDialog.insets = new Insets(1,2,0,0);
 		gbcDialog.gridx = 0;
 		gbcDialog.gridy = 0;
+		
+		// Check out grid width
 		
 		GridBagConstraints gbcPanel = new GridBagConstraints();
 		gbcPanel.anchor = GridBagConstraints.WEST;
@@ -59,22 +62,25 @@ public class MainWindow extends JFrame
 		JPanel pnlPrimes = new JPanel();
 		pnlPrimes.setLayout(new GridBagLayout());
 		
-		lblPrimeCount = new JLabel("0");
-		lblPrimeCount.setFont(new Font("Tahoma", Font.BOLD, 12));
-		gbcPanel.gridx = 1;
-		pnlPrimes.add(lblPrimeCount, gbcPanel);
-		
 		tfPrimeFileName = new JTextField();
-		lblPrimeCount.setLabelFor(tfPrimeFileName);
-		tfPrimeFileName.setColumns(45);
+		tfPrimeFileName.setColumns(50);
 		gbcPanel.gridx = 0;
+		gbcPanel.gridwidth = 2;
 		tfPrimeFileName.setText("primes.txt");
 		pnlPrimes.add(tfPrimeFileName, gbcPanel);
+		
+		lblPrimeCount = new JLabel("0");
+		lblPrimeCount.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblPrimeCount.setLabelFor(tfPrimeFileName);
+		gbcPanel.gridx = 2;
+		gbcPanel.gridwidth = 1;
+		pnlPrimes.add(lblPrimeCount, gbcPanel);
 		
 		JLabel lblPrimeStart = new JLabel("Primes File");
 		lblPrimeStart.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		gbcPanel.gridx = 0;
 		gbcPanel.gridy = 1;
+		gbcPanel.gridwidth = 1;
 		pnlPrimes.add(lblPrimeStart, gbcPanel);
 		
 		JButton btnLoad = new JButton("Load");
@@ -92,6 +98,7 @@ public class MainWindow extends JFrame
 		gbcPanel.anchor = GridBagConstraints.EAST;
 		gbcPanel.gridx = 0;
 		gbcPanel.gridy = 1;
+		gbcPanel.gridwidth = 2;
 		pnlPrimes.add(btnLoad, gbcPanel);
 		
 		JButton btnSave = new JButton("Save");
@@ -108,7 +115,7 @@ public class MainWindow extends JFrame
 		gbcPanel.gridy = 1;
 		pnlPrimes.add(btnSave, gbcPanel);
 		
-		dPrimes.add(pnlPrimes, gbcDialog);
+		add(pnlPrimes, gbcDialog);
 		
 		// Hexagon cross file panel
 		JPanel pnlCrosses = new JPanel();
@@ -119,11 +126,12 @@ public class MainWindow extends JFrame
 		gbcPanel.anchor = GridBagConstraints.WEST;
 		gbcPanel.gridx = 1;
 		gbcPanel.gridy = 0;
+		gbcPanel.gridwidth = 1;
 		pnlCrosses.add(lblCrossCount, gbcPanel);
 		
 		tfCrossFileName = new JTextField();
 		lblCrossCount.setLabelFor(tfCrossFileName);
-		tfCrossFileName.setColumns(45);
+		tfCrossFileName.setColumns(50);
 		gbcPanel.gridx = 0;
 		tfCrossFileName.setText("crosses.txt");
 		pnlCrosses.add(tfCrossFileName, gbcPanel);
@@ -166,7 +174,7 @@ public class MainWindow extends JFrame
 		pnlCrosses.add(btnSaveCross, gbcPanel);
 		
 		gbcDialog.gridy = 1;
-		dPrimes.add(pnlCrosses, gbcDialog);
+		add(pnlCrosses, gbcDialog);
 		
 		// Bottom panel - buttons, status, fields, etc.
 
@@ -187,6 +195,7 @@ public class MainWindow extends JFrame
 		lblLargestPrime = new JLabel("The largest prime has 0 digits.");
 		lblLargestPrime.setFont(new Font("Tahoma", Font.BOLD, 12));
 		gbcPanel.gridx = 1;
+		gbcPanel.anchor = GridBagConstraints.CENTER;
 		pnlButtons.add(lblLargestPrime, gbcPanel);
 		
 		lblLargestCross = new JLabel("The largest cross has 0 and 0 digits.");
@@ -209,7 +218,7 @@ public class MainWindow extends JFrame
 		pnlButtons.add(btnGenerateCross, gbcPanel);		
 		
 		gbcDialog.gridy = 2;
-		dPrimes.add(pnlButtons, gbcDialog);
+		add(pnlButtons, gbcDialog);
 		
 		JPanel pnlStatus = new JPanel();
 		pnlStatus.setLayout(new GridBagLayout());
@@ -225,12 +234,12 @@ public class MainWindow extends JFrame
 		pnlStatus.add(lblStatus, gbcPanel);
 		
 		gbcDialog.gridy = 3;
-		dPrimes.add(pnlStatus, gbcDialog);
+		add(pnlStatus, gbcDialog);
 		
 		
-		dPrimes.setSize(1000,400);
-		dPrimes.pack(); // Knowing what this is and why it is needed is important. You should read the documentation on this function!
-		dPrimes.setVisible(true);		
+		setSize(1000,400);
+		pack(); // Knowing what this is and why it is needed is important. You should read the documentation on this function!
+		setVisible(true);		
 	}
 
 	protected void popupGeneratePrimes()

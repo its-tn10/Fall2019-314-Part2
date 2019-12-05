@@ -14,6 +14,7 @@ public class FileAccess {
   public static boolean loadPrimes(Primes primes, String filename) {
 	  try {
 		  Scanner scanner = new Scanner(new File(filename));
+		  primes.clearPrimes();
 		  // Loop through each prime and append to primes class
 		  while (scanner.hasNextBigInteger())
 			  primes.addPrime(scanner.nextBigInteger());
@@ -27,6 +28,7 @@ public class FileAccess {
   public static boolean loadCrosses(Primes primes, String filename) {
 	  try {
 		  Scanner scanner = new Scanner(new File(filename));
+		  primes.clearCrosses();
 		  // Loop through each prime and append to primes class
 		  while (scanner.hasNextLine()) {
 			  Scanner line = new Scanner(scanner.nextLine());
