@@ -1,13 +1,9 @@
 import java.math.BigInteger;
-import java.util.List;
 
 public class NaiveTest
 {
-	
-	private static List<BigInteger> coefficients;
-	
-	// Deterministic prime numbers : AKS Algorithm
-	public static boolean isPrime(BigInteger candidate)
+	// O(n^2)
+	/*public static boolean isPrime(BigInteger candidate)
 	{
 		if (!candidate.isProbablePrime((100))) return false; // Weed out the likely not primes.
 		
@@ -21,13 +17,24 @@ public class NaiveTest
 			}
 		}
 		return true;
-	}
+	}*/
 	
-	public static void calculateCoefficients(BigInteger n) {
-		coefficients.clear();
-		coefficients.add(BigInteger.ONE);
-		for (BigInteger i = BigInteger.ZERO; i.compareTo(n) < 0; coefficients.get(0).negate(), i.add(BigInteger.ONE)) {
-			
+	// O(n)
+	// https://www.geeksforgeeks.org/java-program-to-check-if-a-number-is-prime-or-not/ : OPTIMIZED SCHOOL METHOD
+	public static boolean isPrime(BigInteger candidate)
+	{
+		if (!candidate.isProbablePrime(100))	return false;
+		if (candidate.compareTo(BigInteger.ONE) <= 0)	return false;
+		if (candidate.compareTo(BigInteger.TWO.add(BigInteger.ONE)) <= 0)	return true;
+		
+		if (candidate.mod(BigInteger.TWO).compareTo(BigInteger.ZERO) == 0 || candidate.compareTo(BigInteger.TWO.add(BigInteger.ONE)) == 0)	return false;
+		
+		BigInteger i = BigInteger.valueOf(5);
+		for (; (i.multiply(i)).compareTo(candidate) <= 0; i = i.add(BigInteger.valueOf(6))) {
+			if (candidate.mod(i).compareTo(BigInteger.ZERO) == 0 || candidate.mod(i.add(BigInteger.TWO)).compareTo(BigInteger.ZERO) == 0)
+				return false;
 		}
+		
+		return true;
 	}
 }
